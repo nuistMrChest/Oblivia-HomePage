@@ -145,6 +145,18 @@ a{
     font-size: 1.5vh;
     color: azure;
 }
+.showing{
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20vw;
+    padding: 1vw;
+    margin: 3vw;
+    background-color: #000000;
+    font-size: 1.5vh;
+    color: azure;   
+}
 .code_exp{
    width: 37vw;
     padding: 2.5vw;
@@ -167,7 +179,6 @@ a{
     color: #004469;
     border-radius: 20px;
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
 }
