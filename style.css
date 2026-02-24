@@ -190,6 +190,7 @@ h2{
     color: #004469;
 }
 .line{
+    border-radius: 20px;
     width: 75vw;
     height: 2vh;
     background-color: #004469;
