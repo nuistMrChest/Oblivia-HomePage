@@ -166,7 +166,8 @@ a{
     color: #004469;
     border-radius: 20px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    flex-direction: column;
     flex-wrap: wrap;
     
 }
@@ -179,7 +180,8 @@ a{
     color: #004469;
     border-radius: 20px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    flex-direction: column;
     flex-wrap: wrap;
 }
 
