@@ -110,7 +110,7 @@ a{
     align-items: center;
     
 }
-#subtitle{
+.subtitle{
     width: 70vw;
     height: 20vh;
     margin-top: 10vh;
