@@ -26,7 +26,7 @@
             <div class="line"></div>
             <div class="subtitle">Type System</div>
             <div class="main">
-                Currently, there are four built-in types: number,string,array,object(not available yet)
+                Currently, there are five right value types: number,string,array,object(not available yet),reference
             </div>
             <div class="main">
                 <h2>Number</h2>
@@ -49,7 +49,13 @@
                 Currently, object is not available.
             </div>
             <div class="main">
-                Then, there are three reference types:variable,array element, object attribute. To storage a value, you have to combine it with a reference type, or it will just be a literal, just like other languages.
+                <h2>Reference</h2>
+                Just like what it was in c++, reference is just like making another name for a left value. When calculated, it behaves exacelt like what it refered to.
+            </div>
+            <div class="main">
+                Then, there are three left value types:variable,array element, object attribute. <br>
+                When created, all the right value are created on heap, so you need left values to store and access them. <br>
+                All the left values are created on heap as well, but the scope system makes them behave like stack. That way, you can control their life span.
             </div>
             <div class="main">
                 <h2>Variable</h2>
@@ -213,6 +219,32 @@ execute "print\"hello\";";
                 </code></pre>
                 prints hello. <br>
                 This means that you can store code as data. What you can do is to add code while the program is running, printing the variables, which makes it easy to debug.
+            </div>
+            <div class="main">
+                <h2>Move</h2>
+                As I said, for most users, a variable is exactly not it is, all the copies are deep copies, etc. But this way, performance won't be great, and this language will be forever a toy. And users do need a way to better manage ther memory. So, move and borrow is here. <br>
+                <pre class="code"><code>
+move expr_a,expr_b;
+                </code></pre>
+                When executed, expr_a and expr_b will be calculated. For now, lets call the results 'A' and 'B'. Both A and B shoud be left values. Then, the value stored in A will be moved to B, just like std::move in c++, or the daily things you did in rust. <br>
+                The move is way better than assignment. <br>
+                But to make it easy to use, after the move, A is assigned number 0.
+            </div>
+            <div class="main">
+                <h2>Borrow</h2>
+                To manage your memory, you also need pointers. But they are dangerous and hard to work to, so instead, we have reference, which we mentioned before. <br>
+                Reference can only be creatred in borrow statement:
+                <pre class="code"><code>
+borrow expr,a;
+                </code></pre>
+                When executed, expr will be calculated. The result must be a left value. Then, a variable will be creatred called 'a', and assigned with a reference refered to the result of expr, for example:
+                <pre class="code"><code>
+let a=9;
+borrow a,b;
+b=8;
+                </code></pre>
+                And now, variable 'a' becomes 8. <br>
+                Reference here is more similar to what references are in c++,rather than that in rust <s>because I'm too lazy to design a dereference calculation</s>
             </div>
             <div class="line"></div>
             <div class="subtitle">Interpreter</div>
