@@ -1,2 +1,2 @@
 # Oblivia-HomePage
-contains the homepage of oblivia language
+Contains the homepage of the Oblivia language

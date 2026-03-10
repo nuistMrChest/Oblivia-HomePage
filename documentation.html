@@ -10,7 +10,7 @@
 <body>
     <nav>
         <img src="LOGO/LOGO3.png" id="logo">
-        <div id="title">Oblivia Programing Language</div>
+        <div id="title">Oblivia Programming Language</div>
         <ul id="nav">
             <li class="nav_li"><a href="index.html">Home</a></li>
             <li class="nav_li"><a href="https://github.com/nuistMrChest/Oblivia_release/releases/">Download</a></li>
@@ -34,28 +34,28 @@
             </div>
             <div class="main">
                 <h2>String</h2>
-                We don't have char here, but we have string. In this language, once created, you cannot modify the char inside the stirng. But you can still visit single char, which is acually one charecter string, and you can apply strings tu the end of a string to create sub strings. <br>
+                We don't have char here, but we have string. In this language, once created, you cannot modify the char inside the string. But you can still visit single char, which is actually one character string, and you can apply strings to the end of a string to create sub strings. <br>
                 There are supported escapes, which are:
                 <pre class="code"><code>\n \" \a \b \f \r \t \v \\
                 </code></pre>
-                Remenber, \' is ilegal, bucause ' can already exist in string legally.
+                Remember, \' is illegal, because ' can already exist in string legally.
             </div>
             <div class="main">
                 <h2>Array</h2>
-                We also support array. An array is, ofcourse, a contiguous block of memory. You can contain different types of data in a single array, we will talk about whats going on later. Unlike other script language, you cannot change the length of the array once created. Visiting the array element is just like other languages, using [ ], but we have an operator to do that as well.
+                We also support array. An array is, of course, a contiguous block of memory. You can contain different types of data in a single array, we will talk about what's going on later. Unlike other script language, you cannot change the length of the array once created. Visiting the array element is just like other languages, using [ ], but we have an operator to do that as well.
             </div>
             <div class="main">
                 <h2>Object</h2>
                 Objects are important to describe complicated data structure. <br>
-                Since this is a dynamic language, class or struct is not needed. For now, you can initialize an enmpy object and add attribute later.
+                Since this is a dynamic language, class or struct is not needed. For now, you can initialize an empty object and add attribute later.
             </div>
             <div class="main">
                 <h2>Reference</h2>
-                Reference here is acutally kinda like pointers, but easier to use, and safer. <br>
+                Reference here is actually kinda like pointers, but easier to use, and safer. <br>
                 It must be initialized with a Rvalue pointed. If the Rvalue dies, the reference will be set at a "nullptr" status.
             </div>
             <div class="main">
-                Then, there are three Lvalues: variable,array element, object attribute. To storage a value, you have to combine it with a Lvalue, or it will just be a literal, just like other languages.
+                Then, there are three Lvalues: variable,array element, object attribute. To store a value, you have to combine it with a Lvalue, or it will just be a literal, just like other languages.
             </div>
             <div class="main">
                 <h2>Variable</h2>
@@ -74,9 +74,9 @@
             <div class="main">
                 To introduce expression, we have to introduce operators. <br>
                 Supported operator: + - * / % = == != > < >= <= && || ! # -> += -= *= /= %= <br>
-                Note: # is the operator to visit array element, which we've mentioned previously. When you write a[0], the tokenizer ancually turns it into a#(0), then the expression calculation system gives you the first array element contained in the array conmined with a. -> is the operator to visit object attribute, just like # .More detailed information will be given when object is fully implemented. / is divition of float. Because number is float in c, 3/2 actually gives you 1.5 instead of 1. % is fmod in math.h in libc, so 3%2 is still 1. <br>
+                Note: # is the operator to visit array element, which we've mentioned previously. When you write a[0], the tokenizer actually turns it into a#(0), then the expression calculation system gives you the first array element contained in the array combined with a. -> is the operator to visit object attribute, just like # .More detailed information will be given when object is fully implemented. / is division of float. Because number is float in c, 3/2 actually gives you 1.5 instead of 1. % is fmod in math.h in libc, so 3%2 is still 1. <br>
                 Number can be used as bool, 0 is false, any number that is not 0 is true. The trues given by bool operators (&& ! || == != > < >= <=) are number 1. And still, since number is float, sometimes bool calculation may not function properly. <br>
-                Of coures, these operators have priorities.
+                Of course, these operators have priorities.
                 <pre class="code"><code>
 8: # ->
 7: !
@@ -91,23 +91,23 @@
                 You can also use parens inside an expression. <br>
                 The operators have got associativity. <br>
                 The associativity of ! = += -= *= /= %= is right, and everyone else's is left.	<br>
-                A thing to remenber is that all the assignment here are deep copy, all the compair here are deep compair, so you don't have to guess like what we used to do in python or java.
+                A thing to remember is that all the assignment here are deep copy, all the compare here are deep compare, so you don't have to guess like what we used to do in python or java.
             </div>
             <div class="main">
-                What makes an expression legal? When the checker gets an expression tokens, it generates a same tokens you gave it, and it removes all the unary operators, which is actually just ! . Then, for the checker, there are only to types of token: value and operator. identifier , numebr and string literal is seen as value, while operators are just operator. Now, a ilegal expression must follow two rules: value and operator appears alternately, and it must start and end with value, which means it must look like: 
+                What makes an expression legal? When the checker gets an expression tokens, it generates a same tokens you gave it, and it removes all the unary operators, which is actually just ! . Then, for the checker, there are only two types of token: value and operator. identifier , number and string literal is seen as value, while operators are just operator. Now, a illegal expression must follow two rules: value and operator appears alternately, and it must start and end with value, which means it must look like:
                 <pre class="code"><code>
- valte operator value operator ...... operator value
-                </code></pre>                
+ value operator value operator ...... operator value
+                </code></pre>
                 When encontered paren, the things inside the paren will be checked following the two rules above, then the paren, as well as every thing inside, will be removed and replaced with a value:
                 <pre class="code"><code>
-value operator(value operator value)operator value 
+value operator(value operator value)operator value
 => value operator value operator value
                 </code></pre>
                 Then, when all the binary operators are checked, the checker goes back to the original tokens and check the unary operators. Here, the operator ! must be followed with a value, paren ( or another !. <br>
-                So as you can see, a ilegal expression is not necessarily calculatable. For instance, 1=1 is a legal expression, but crashes when calculated.
+                So as you can see, a illegal expression is not necessarily calculatable. For instance, 1=1 is a legal expression, but crashes when calculated.
             </div>
             <div class="main">
-                Asaide form normal numeric and boolean calculation, there are some special usage of the operators.
+                Aside from normal numeric and boolean calculation, there are some special usage of the operators.
                 <h2>String</h2>
                 you can use + to build a larger string, or use += to append strings, like:
                 <pre class="code"><code>
@@ -134,7 +134,7 @@ a+=c;
             <div class="line"></div>
             <div class="subtitle">Statement</div>
             <div class="main">
-                Now we'v entered the core feature of the grammer. <br>
+                Now we've entered the core feature of the grammar. <br>
                 There are three types of statements:normal statement,expression statement,statement block. <br>
                 A statement must end with ; or wrapped with {}. {} means it is a block. For those who ends with ; , if it starts with a key word, it's a normal statement, otherwise it's an expression statement.
             </div>
@@ -187,7 +187,7 @@ print "Hello World!\n";
             </div>
             <div class="main">
                 <h2>Scan</h2>
-                what a scan statement does is also simple:read whatever you inputed as a string, canculate the expression and assign the string to t resule. The result must be assignable, or the program will crash.
+                what a scan statement does is also simple:read whatever you inputted as a string, calculate the expression and assign the string to the result. The result must be assignable, or the program will crash.
                 <pre class="code"><code>
 scan a;
                 </code></pre>
@@ -196,7 +196,7 @@ scan a;
                 <h2>If</h2>
                 To implement complex algorithm, we need if. The way to use if is:
                 <pre class="code"><code>
-if expr:stat 
+if expr:stat
                 </code></pre>
                 expr is an expression, and stat is a statement. The result of expr must be a number, which we use as bool here, or the program crashes. If the result is not 0, stat will be executed.
             </div>
@@ -207,11 +207,11 @@ if expr:stat
 else stat
                 </code></pre>
                 If the expr of the linked if is 0, stat will be executed. <br>
-                In some situation else will appear not in a block, then it is legal even if there is no if above, it is legal, even thougn it does absolute nothing.
+                In some situation else will appear not in a block, then it is legal even if there is no if above, it is legal, even though it does absolutely nothing.
             </div>
             <div class="main">
                 <h2>While</h2>
-                To be a fully functional programing language, we also need loop, which is implemented as while statement, used as:
+                To be a fully functional programming language, we also need loop, which is implemented as while statement, used as:
                 <pre class="code"><code>
 while expr:stat
                 </code></pre>
@@ -220,7 +220,7 @@ while expr:stat
             </div>
             <div class="main">
                 <h2>Break</h2>
-                Break statament is used simply as:
+                Break statement is used simply as:
                 <pre class="code"><code>
 break;
                 </code></pre>
@@ -230,7 +230,7 @@ break;
                 <h2>Continue</h2>
                 Continue works just like break:
                 <pre class="code"><code>
-contunue;
+continue;
                 </code></pre>
                 It ends block execution and send continue message to the while, and while jump to the next turn of loop no matter the stat.
             </div>
@@ -240,7 +240,7 @@ contunue;
                 <pre class="code"><code>
 execute expr;
                 </code></pre>
-                Expr is an expression. The result must be a string, and what the string contains must be a legal statement of Oblevia. meaning that:
+                Expr is an expression. The result must be a string, and what the string contains must be a legal statement of Oblivia. meaning that:
                 <pre class="code"><code>
 execute "print\"hello\";";
                 </code></pre>
@@ -266,7 +266,7 @@ let c@;
             <div class="line"></div>
             <div class="subtitle">Interpreter</div>
             <div class="main">
-                The interpreter runs in two mods: no argument means REPL mode which enteres REPL, with one argument as source code path means running a file.
+                The interpreter runs in two modes: no argument means REPL mode which enters REPL, with one argument as source code path means running a file.
             </div>
             <div class="main">
                 <h2>REPL</h2>
@@ -279,7 +279,7 @@ let c@;
 /scope_up
 /scope_down
                 </code></pre>
-                If you input a statament, it tokenize, check legal, build satement and execute, just like every other REPL. Note: else, break and continue does absolute nothing if inputted directly to REPL.
+                If you input a statement, it tokenizes, checks legality, builds statement and executes, just like every other REPL. Note: else, break and continue does absolutely nothing if inputted directly to REPL.
             </div>
             <div class="main">
                 <h2>Running a file</h2>
