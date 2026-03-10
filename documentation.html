@@ -26,7 +26,7 @@
             <div class="line"></div>
             <div class="subtitle">Type System</div>
             <div class="main">
-                Currently, there are five right value types: number,string,array,object(not available yet),reference
+                Currently, there are five built-in right values: number,string,array,object and reference.
             </div>
             <div class="main">
                 <h2>Number</h2>
@@ -46,16 +46,16 @@
             </div>
             <div class="main">
                 <h2>Object</h2>
-                Currently, object is not available.
+                Objects are important to describe complicated data structure. <br>
+                Since this is a dynamic language, class or struct is not needed. For now, you can initialize an enmpy object and add attribute later.
             </div>
             <div class="main">
                 <h2>Reference</h2>
-                Just like what it was in c++, reference is just like making another name for a left value. When calculated, it behaves exacelt like what it refered to.
+                Reference here is acutally kinda like pointers, but easier to use, and safer. <br>
+                It must be initialized with a right value pointed. If the right value dies, the reference will be set at a "nullptr" status.
             </div>
             <div class="main">
-                Then, there are three left value types:variable,array element, object attribute. <br>
-                When created, all the right value are created on heap, so you need left values to store and access them. <br>
-                All the left values are created on heap as well, but the scope system makes them behave like stack. That way, you can control their life span.
+                Then, there are three right values: variable,array element, object attribute. To storage a value, you have to combine it with a reference type, or it will just be a literal, just like other languages.
             </div>
             <div class="main">
                 <h2>Variable</h2>
@@ -66,8 +66,8 @@
                 Previously, we've talked about array, which is a contiguous block of memory. But to be more precise, it does not contain data directly. It only contains array element, which is why it can store different types. The operator used to visit element of array is actually giving you the array element. Just like variable, it is number 0 by default.
             </div>
             <div class="main">
-                <head>Object Attribute</head>
-                Object ottribute is not available so far, just like object.
+                <h2>Object Attribute</h2>
+                Just like array, an object is a contiguous block of memory, containing attributes and indexed by identifier.
             </div>
             <div class="line"></div>
             <div class="subtitle">Expression</div>
@@ -106,12 +106,37 @@ value operator(value operator value)operator value
                 Then, when all the binary operators are checked, the checker goes back to the original tokens and check the unary operators. Here, the operator ! must be followed with a value, paren ( or another !. <br>
                 So as you can see, a ilegal expression is not necessarily calculatable. For instance, 1=1 is a legal expression, but crashes when calculated.
             </div>
+            <div class="main">
+                Asaide form normal numeric and boolean calculation, there are some special usage of the operators.
+                <h2>String</h2>
+                you can use + to build a larger string, or use += to append strings, like:
+                <pre class="code"><code>
+"a"+"b";
+let a="hello ";
+a+="world";
+                </code></pre>
+                <br>
+                <h2>Object</h2>
+                For now, there is no object literals, so all the object are empty when initialized. So, we will use + or += to add attributes.
+                <pre class="code"><code>
+let a@;
+let b=a+c;
+                </code></pre>
+                Now a is sitll an empty object, but b is an object with an attribute called c. <br>
+                Like variables, attributes are assigned with number 0 by default. <br>
+                If you really want to add attribute for a, try this:
+                <pre class="code"><code>
+let a@;
+a+=c;
+                </code></pre>
+                Now a is an object with an attribute called c.
+            </div>
             <div class="line"></div>
             <div class="subtitle">Statement</div>
             <div class="main">
                 Now we'v entered the core feature of the grammer. <br>
                 There are three types of statements:normal statement,expression statement,statement block. <br>
-                A statement must end with ; or wrapped with {}. {} means it is a block. For those who ends witch ; , if it starts with a key word, it's a normal statement, otherwise it's an expression statement.
+                A statement must end with ; or wrapped with {}. {} means it is a block. For those who ends with ; , if it starts with a key word, it's a normal statement, otherwise it's an expression statement.
             </div>
             <div class="main">
                 <h2>Block</h2>
@@ -145,10 +170,12 @@ let b=1+9;
 let c="giao";
 let d#3;
 let e[9];
+let f@;
                 </code></pre>
                 The first exaple created a variable with nothing, which, as we mentioned before, will be given number 0. <br>
                 The second and third examples show that it can be initialized with the result of an expression.  <br>
-                The forth and fifth examples show how to initialize array.
+                The forth and fifth examples show how to initialize array. <br>
+                The last example shows how to initialize an empty object.
             </div>
             <div class="main">
                 <h2>Print</h2>
@@ -221,30 +248,20 @@ execute "print\"hello\";";
                 This means that you can store code as data. What you can do is to add code while the program is running, printing the variables, which makes it easy to debug.
             </div>
             <div class="main">
-                <h2>Move</h2>
-                As I said, for most users, a left value conbines one, and only combines one, right value, all the copies are deep copies, etc. But this way, performance won't be great, and this language will be forever a toy. And users do need a way to better manage ther memory. So, move and borrow is here. <br>
+                <h2>Include</h2>
+                This is how we split our code into more than one source file. <br>
                 <pre class="code"><code>
-move expr_a,expr_b;
+include expr;
                 </code></pre>
-                When executed, expr_a and expr_b will be calculated. For now, lets call the results 'A' and 'B'. Both A and B shoud be left values. Then, the value stored in A will be moved to B, just like std::move in c++, or the daily things you did in rust. <br>
-                The move is way better than assignment. <br>
-                But to make it easy to use, after the move, A is assigned number 0.
-            </div>
-            <div class="main">
-                <h2>Borrow</h2>
-                To manage your memory, you also need pointers. But they are dangerous and hard to work to, so instead, we have reference, which we mentioned before. <br>
-                Reference can only be creatred in borrow statement:
+                The result of expr must be a string and contains a legal path to an oblivia source file. <br>
+                If a file is included instead of run directly by interpreter, it don't have to be a single legal statement, for example:
                 <pre class="code"><code>
-borrow expr,a;
+let a=0;
+let b[10];
+let c@;
                 </code></pre>
-                When executed, expr will be calculated. The result must be a left value. Then, a variable will be creatred called 'a', and assigned with a reference refered to the result of expr, for example:
-                <pre class="code"><code>
-let a=9;
-borrow a,b;
-b=8;
-                </code></pre>
-                And now, variable 'a' becomes 8. <br>
-                Reference here is more similar to what references are in c++,rather than that in rust <s>because I'm too lazy to design a dereference calculation</s>
+                is a legal file to be included, but cannot run by interpreter. <br>
+                The base scope level of the file starts by the scope level of the include statement. Like, if the level of the include statement is 3, than inside the example above, a, b and c are in scope level 3, and so on.
             </div>
             <div class="line"></div>
             <div class="subtitle">Interpreter</div>
@@ -253,12 +270,15 @@ b=8;
             </div>
             <div class="main">
                 <h2>REPL</h2>
-                In the REPL, you can input REPL commands or Oblivia statement. Currently there are two commands:
+                In the REPL, you can input REPL commands or Oblivia statement. Currently there are six commands:
                 <pre class="code"><code>
 /exit
 /help
+/list_variables
+/scope
+/scope_up
+/scope_down
                 </code></pre>
-                /exit means exiting the REPL, and /help was supposed to show help information, but i'n too lazy to implement it. <br>
                 If you input a statament, it tokenize, check legal, build satement and execute, just like every other REPL. Note: else, break and continue does absolute nothing if inputted directly to REPL.
             </div>
             <div class="main">
